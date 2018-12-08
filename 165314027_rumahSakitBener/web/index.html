@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <title>Rumah Sakit</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta name="viewport" content="initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+            body {
+                font: 20px Montserrat, sans-serif;
+                line-height: 1.8;
+                color: #f5f6f7;
+            }
+            p {font-size: 16px;}
+            .margin {margin-bottom: 45px;}
+            .bg-1 { 
+                background-color: steelblue; /* blue */
+                color: #ffffff;
+            }
+
+            .bg-3 { 
+                background-color: #ffffff; /* White */
+                color: #555555;
+            }
+            .bg-4 { 
+                background-color: #2f2f2f; /* Black Gray */
+                color: #fff;
+            }
+            .container-fluid {
+                padding-top: 70px;
+                padding-bottom: 70px;
+            }            .navbar {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                border: 0;
+                border-radius: 0;
+                margin-bottom: 0;
+                font-size: 12px;
+                letter-spacing: 5px;
+            }
+            .navbar-nav  li a:hover {
+                color: #1abc9c !important;
+            }
+        </style>
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 100%;
+                width: 50%;
+                margin-left: 30%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href=index.html>Home</a>
+                    
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href=login.html>Login</a></li>
+<!--                        <li><a href=klinik.html>Klinik</a></li>
+                        <li><a href=dokter.html>Dokter</a></li>
+                        <li><a href=tambahPasien.html>Tambah Pasien</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- First Container -->
+        <div class="container-fluid bg-1 text-center">
+            <h3 class="margin">Rumah Sakit Hahahahaha </h3>
+            <img src="hm.png" class="img-responsive" style="display:inline" width="350" height="350">
+
+        </div>
+
+        <!-- Second Container -->
+
+
+        <!-- Third Container (Grid) -->
+        <div class="container-fluid bg-3 text-center">    
+            <h3 class="margin">Tentang Kami</h3><br>
+            <div class="text-center">
+                <div class="col-sm-4">
+                    <p>Kami mengembangkan Pusat Layanan 
+                        kesehatan untuk memberikan pelayanan prima 
+                        dan menyeluruh bagi pasien.</p>
+                    <img src="gambar2.jpg" class="navbar" style="width:100%" alt="Image">
+                </div>
+                <div class="col-sm-4">
+                    <p>Kami mempunyai ruangan dengan berbagai pilihan jenis kelas yang bersih dan layak untuk ditempati</p>
+                    <img src="medis2.jpg" class="navbar" style="width:100%" alt="Image">
+                </div>
+                <div class="col-sm-4"> 
+                    <p>Kami menyediakan tenaga kerja dokter dan staff yang handal untuk
+                        melakukan pelayanan dengan ramah</p>
+                    <img src="gambar3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+                </div>
+            </div>
+        </div>   
+         
+        <div id="map"></div>
+        <script>
+                var map;
+                var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Location";
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("demo").innerHTML = this.responseText;
+
+                        var obj = JSON.parse(this.responseText);
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            center: {lat: obj[0].lat, lng: obj[0].lng},
+                            zoom: 12
+                        });
+                        var marker = [];
+                        for (var i = 0; i < obj.length; i++) {
+                            marker[i] = new google.maps.Marker({position: {lat: obj[i].lat, lng: obj[i].lng}, map: map});
+                        }
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnD2l64I6G6fUkPpc3D79Jcau30v8xEKE&callback=initMap"
+            async defer></script>
+            <p style="margin-left: 10%" id="demo"></p>
+         
+        
+
+        <!-- Footer -->
+        <footer class="container-fluid bg-4 text-center">
+            <p><font size="6">PT. Hospital International</font><br>
+                <font size="3">Jl. AM Sangaji No.29 </font><br>
+                <font size="3">Sleman, Yogyakarta 15810 </font><br>
+                <font size="3">Phone : (0274) 2930 8888. Fax : (0274) 2930 9888 </font><br></p>
+        </footer>
+
+        
+    </body>
+</html>
+
