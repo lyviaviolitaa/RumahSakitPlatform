@@ -4,13 +4,11 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html lang="en">
+<html>
     <head>
-        <title>Rumah Sakit</title>
+        <title>Lihat Antrian</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="initial-scale=1.0">
-        <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -29,15 +27,6 @@ and open the template in the editor.
                 background-color: steelblue; /* blue */
                 color: #ffffff;
             }
-
-            .bg-3 { 
-                background-color: #ffffff; /* White */
-                color: #555555;
-            }
-            .bg-4 { 
-                background-color: #2f2f2f; /* Black Gray */
-                color: #fff;
-            }
             .container-fluid {
                 padding-top: 70px;
                 padding-bottom: 70px;
@@ -53,20 +42,10 @@ and open the template in the editor.
             .navbar-nav  li a:hover {
                 color: #1abc9c !important;
             }
-        </style>
-        <style>
-            /* Always set the map height explicitly to define the size of the div
-             * element that contains the map. */
-            #map {
-                height: 100%;
-                width: 50%;
-                margin-left: 30%;
-            }
-            /* Optional: Makes the sample page fill the window. */
-            html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
+            table, th , td  {
+                border: 1px solid grey;
+                border-collapse: collapse;
+                padding: 5px;
             }
         </style>
     </head>
@@ -82,7 +61,6 @@ and open the template in the editor.
                         <span class="icon-bar"></span>                        
                     </button>
                     <a class="navbar-brand" href=index.html>Home</a>
-
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
@@ -113,83 +91,49 @@ and open the template in the editor.
                                 <li><a href="lihatAntrian.html">Lihat Daftar Antrian </a></li>
                             </ul>
                         </li>
-                        
-                        
+
 
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <!-- First Container -->
-        <div class="container-fluid bg-1 text-center">
-            <h3 class="margin">Rumah Sakit HAHAHAHA </h3>
-            <img src="hm.png" class="img-responsive" style="display:inline" width="350" height="350">
-
+        <div class ="container-fluid bg-1">
+            <h1>Antrian yang ada saat ini</h1>
+            <button type ="button" onclick= "loadAntrian()" id="btn" style="margin-left: 5%">Klik Disini</button>
+            <p id="demo2"></p> 
+            <div id="tampil1"></div>
+            <div id="tampil2"></div>
         </div>
 
-        <!-- Second Container -->
-
-
-        <!-- Third Container (Grid) -->
-        <div class="container-fluid bg-3 text-center">    
-            <h3 class="margin">Tentang Kami</h3><br>
-            <div class="text-center">
-                <div class="col-sm-4">
-                    <p>Kami mengembangkan Pusat Layanan 
-                        kesehatan untuk memberikan pelayanan prima 
-                        dan menyeluruh bagi pasien.</p>
-                    <img src="gambar2.jpg" class="navbar" style="width:100%" alt="Image">
-                </div>
-                <div class="col-sm-4">
-                    <p>Kami mempunyai ruangan dengan berbagai pilihan jenis kelas yang bersih dan layak untuk ditempati</p>
-                    <img src="medis2.jpg" class="navbar" style="width:100%" alt="Image">
-                </div>
-                <div class="col-sm-4"> 
-                    <p>Kami menyediakan tenaga kerja dokter dan staff yang handal untuk
-                        melakukan pelayanan dengan ramah</p>
-                    <img src="gambar3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-                </div>
-            </div>
-        </div>   
-
-        <div id="map"></div>
         <script>
-            var map;
-            var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Location";
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML = this.responseText;
-
-                    var obj = JSON.parse(this.responseText);
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: obj[0].lat, lng: obj[0].lng},
-                        zoom: 12
-                    });
-                    var marker = [];
-                    for (var i = 0; i < obj.length; i++) {
-                        marker[i] = new google.maps.Marker({position: {lat: obj[i].lat, lng: obj[i].lng}, map: map});
+            function loadAntrian() {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "http://202.94.83.190:8085/165314027_RsServiceBaru/webresources/Antrian";
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this.responseText);
                     }
                 }
-            };
-            xhttp.open("GET", url, true);
-            xhttp.send();
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+
+                function myFunction(response) {
+                    var arr = JSON.parse(response);
+                    var i;
+                    var out = "<table><tr><td>Id</td><td>Tanggal</td><td>No. RM</td><td>Nama</td><td>Alamat</td><td>Nama Klinik</td>";
+
+                    for (i = 0; i < arr.length; i++) {
+                        out += "<tr><td>" +
+                                arr[i].id + "</td><td>" + arr[i].tanggal + "</td><td>" +
+                                arr[i].noRm + "</td><td>" + arr[i].nama + "</td><td>" +
+                                arr[i].alamat + "</td><td>" + arr[i].namaKlinik;
+
+                    }
+                    out += "</table>";
+                    document.getElementById("tampil1").innerHTML = out;
+                }
+            }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnD2l64I6G6fUkPpc3D79Jcau30v8xEKE&callback=initMap"
-        async defer></script>
-        <p style="margin-left: 10%" id="demo"></p>
-
-
-
-        <!-- Footer -->
-        <footer class="container-fluid bg-4 text-center">
-            <p><font size="6">PT. Hospital International</font><br>
-                <font size="3">Jl. AM Sangaji No.29 </font><br>
-                <font size="3">Sleman, Yogyakarta 15810 </font><br>
-                <font size="3">Phone : (0274) 2930 8888. Fax : (0274) 2930 9888 </font><br></p>
-        </footer>
-
     </body>
-
 </html>

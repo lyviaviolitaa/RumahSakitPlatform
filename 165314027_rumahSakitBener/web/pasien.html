@@ -64,32 +64,35 @@ and open the template in the editor.
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                       <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dokter
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="dokter.html">Lihat Daftar Dokter </a></li>
-                        <li><a href="tambahDokter.html">Tambah Dokter Baru </a></li>
-                        </ul>
-                         </li> 
                         <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Klinik
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="klinik.html">Lihat Daftar Klinik </a></li>
-                        <li><a href="tambahKlinik.html">Tambah Klinik Baru</a></li>
-                        <li><a href=tambahLokasi.html>Tambah Lokasi Klinik</a></li>
-                        </ul>
-                         </li> 
-                         <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pasien
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="pasien.html">Lihat Daftar Pasien </a></li>
-                        <li><a href="tambahPasien.html">Tambah Pasien Baru </a></li>
-                        </ul>
-                         </li> 
-                        
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dokter
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="dokter.html">Lihat Daftar Dokter </a></li>
+                                <li><a href="tambahDokter.html">Tambah Dokter Baru </a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Klinik
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="klinik.html">Lihat Daftar Klinik </a></li>
+                                <li><a href="tambahKlinik.html">Tambah Klinik Baru</a></li>
+                                <li><a href=tambahLokasi.html>Tambah Lokasi Klinik</a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pasien
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="pasien.html">Lihat Daftar Pasien </a></li>
+                                <li><a href="tambahPasien.html">Tambah Pasien Baru </a></li>
+                                <li><a href="antrian.html">Tambah Antrian Baru </a></li>
+                                <li><a href="lihatAntrian.html">Lihat Daftar Antrian </a></li>
+                            </ul>
+                        </li> 
+
+
                     </ul>
                 </div>
             </div>
@@ -99,44 +102,44 @@ and open the template in the editor.
             <h1>Pasien yang sudah terdaftar</h1>
             <button type ="button" onclick= "loadPasien()" id="btn" style="margin-left: 5%">Klik Disini</button>
             <p id="demo"></p> 
-<!--            <div id="tampil2"></div>-->
+            <!--            <div id="tampil2"></div>-->
         </div>
-        
-        
-             <script>
+
+
+        <script>
             function loadPasien() {
-                
+
             }
-                var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Pasien";
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        loopingList(this.responseText);
-                    }
+            var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Pasien";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    loopingList(this.responseText);
                 }
-                xmlhttp.open("GET", url, true);
-                xmlhttp.send();
+            }
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
 
-                function loopingList(response) {
-                    var size = JSON.parse(response);
-                    var i;
-                    var out = "<table align='center' style='width: 60%;' border='1'> <tr><th>No RM</th><th>Nama Pasien</th><th>Alamat</th>\n\
-            <th>NIK</th><th>Tanggal Lahir</th><th>Kelamin</th></tr>";
+            function loopingList(response) {
+                var size = JSON.parse(response);
+                var i;
+                var out = "<table align='center' style='width: 60%;' border='1'> <tr><th>No RM</th><th>Nama Pasien</th><th>Alamat</th>\n\
+       <th>NIK</th><th>Tanggal Lahir</th><th>Kelamin</th></tr>";
 
-                    for (i = 0; i < size.length; i++) {
-                        out += "<tr><td>" + size[i].noRm +
-                                "</td><td>" + size[i].nama +
-                                "</td><td>" + size[i].alamat +
-                                "</td><td>" + size[i].nik +
-                                "</td><td>" + size[i].tanggalLahir +
-                                "</td><td>" + size[i].kelamin +
-                                "</td></tr>";
-                    }
-                    out += "</table>";
-                    document.getElementById("demo").innerHTML = out;
-                    ;
+                for (i = 0; i < size.length; i++) {
+                    out += "<tr><td>" + size[i].noRm +
+                            "</td><td>" + size[i].nama +
+                            "</td><td>" + size[i].alamat +
+                            "</td><td>" + size[i].nik +
+                            "</td><td>" + size[i].tanggalLahir +
+                            "</td><td>" + size[i].kelamin +
+                            "</td></tr>";
+                }
+                out += "</table>";
+                document.getElementById("demo").innerHTML = out;
+                ;
             }
         </script>
-        
+
     </body>
 </html>

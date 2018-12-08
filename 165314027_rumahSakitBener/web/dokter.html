@@ -63,33 +63,36 @@ and open the template in the editor.
                     <a class="navbar-brand" href=index.html>Home</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                   <ul class="nav navbar-nav navbar-right">
-                       <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dokter
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="dokter.html">Lihat Daftar Dokter </a></li>
-                        <li><a href="tambahDokter.html">Tambah Dokter Baru </a></li>
-                        </ul>
-                         </li> 
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Klinik
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="klinik.html">Lihat Daftar Klinik </a></li>
-                        <li><a href="tambahKlinik.html">Tambah Klinik Baru</a></li>
-                        <li><a href=tambahLokasi.html>Tambah Lokasi Klinik</a></li>
-                        </ul>
-                         </li> 
-                         <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pasien
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                         <li><a href="pasien.html">Lihat Daftar Pasien </a></li>
-                        <li><a href="tambahPasien.html">Tambah Pasien Baru </a></li>
-                        </ul>
-                         </li> 
-                        
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dokter
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="dokter.html">Lihat Daftar Dokter </a></li>
+                                <li><a href="tambahDokter.html">Tambah Dokter Baru </a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Klinik
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="klinik.html">Lihat Daftar Klinik </a></li>
+                                <li><a href="tambahKlinik.html">Tambah Klinik Baru</a></li>
+                                <li><a href=tambahLokasi.html>Tambah Lokasi Klinik</a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pasien
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="pasien.html">Lihat Daftar Pasien </a></li>
+                                <li><a href="tambahPasien.html">Tambah Pasien Baru </a></li>
+                                <li><a href="antrian.html">Tambah Antrian Baru </a></li>
+                                <li><a href="lihatAntrian.html">Lihat Daftar Antrian </a></li>
+                            </ul>
+                        </li> 
+
+
                     </ul>
                 </div>
             </div>
@@ -101,33 +104,33 @@ and open the template in the editor.
             <p id="demo3"></p> 
             <div id="tampil2"></div>
         </div>
-        
+
         <script>
-             function loadDokter() {
-        var xmlhttp = new XMLHttpRequest();
-        var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Dokter";
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                myFunction(this.responseText);
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
-        function myFunction(response) {
-            var arr = JSON.parse(response);
-            var i;
-            var out = "<table><tr><td>Nomor</td><td>Nama Dokter</td><td>Spesialis</td>";
+            function loadDokter() {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Dokter";
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this.responseText);
+                    }
+                }
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+                function myFunction(response) {
+                    var arr = JSON.parse(response);
+                    var i;
+                    var out = "<table><tr><td>Nomor</td><td>Nama Dokter</td><td>Spesialis</td>";
 
-            for (i = 0; i < arr.length; i++) {
-                out += "<tr><td>" +
-                        arr[i].id + "</td><td>" + arr[i].nama + "</td><td>" +
-                        arr[i].spesialis;
+                    for (i = 0; i < arr.length; i++) {
+                        out += "<tr><td>" +
+                                arr[i].id + "</td><td>" + arr[i].nama + "</td><td>" +
+                                arr[i].spesialis;
 
+                    }
+                    out += "</table>";
+                    document.getElementById("tampil2").innerHTML = out;
+                }
             }
-            out += "</table>";
-            document.getElementById("tampil2").innerHTML = out;
-        }
-    }
         </script>
     </body>
 </html>
