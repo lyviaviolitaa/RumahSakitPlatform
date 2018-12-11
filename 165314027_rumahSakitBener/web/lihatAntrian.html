@@ -91,8 +91,6 @@ and open the template in the editor.
                                 <li><a href="lihatAntrian.html">Lihat Daftar Antrian </a></li>
                             </ul>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -100,16 +98,16 @@ and open the template in the editor.
 
         <div class ="container-fluid bg-1">
             <h1>Antrian yang ada saat ini</h1>
-            <button type ="button" onclick= "loadAntrian()" id="btn" style="margin-left: 5%">Klik Disini</button>
+            <button type ="button" onclick= "loadAntri()" id="btn" style="margin-left: 5%">Klik Disini</button>
             <p id="demo2"></p> 
             <div id="tampil1"></div>
             <div id="tampil2"></div>
         </div>
 
         <script>
-            function loadAntrian() {
+            function loadAntri() {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "http://202.94.83.190:8085/165314027_RsServiceBaru/webresources/Antrian";
+                var url = "http://202.94.83.190:8080/165314027_RsServiceBaru/webresources/Antrian";
                 xmlhttp.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         myFunction(this.responseText);
